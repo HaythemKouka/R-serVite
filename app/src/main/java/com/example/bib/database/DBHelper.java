@@ -62,7 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 //        db.execSQL("CREATE TABLE users(username TEXT PRIMARY KEY, password TEXT)");
         // Table des livres
-        db.execSQL("CREATE TABLE IF NOT EXISTS liv&res(" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS livres(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "titre TEXT, " +
                 "auteur TEXT, " +
