@@ -13,9 +13,10 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
-    private List<User> userList;
+     private List<User> userList;
 
     public UserAdapter(List<User> userList) {
+
         this.userList = userList;
     }
 
@@ -29,7 +30,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        User user = userList.get(position);
+         User user = userList.get(position);
         holder.tvUserEmail.setText(user.getEmail());
     }
 

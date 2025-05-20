@@ -1,4 +1,4 @@
-<androidx.constraintlayout.widget.ConstraintLayout
+ <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,16 +22,18 @@
         android:inputType="textEmailAddress" />
 </com.google.android.material.textfield.TextInputLayout>
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Password"
-        app:endIconMode="password_toggle"
+         app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@+id/emailLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp">
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
@@ -40,7 +42,7 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/confirmPasswordLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -85,3 +87,4 @@
         android:padding="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

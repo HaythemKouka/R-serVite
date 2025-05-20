@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View; // Don't forget to import View
 import android.widget.Button;
 import android.widget.TextView; // Don't forget to import TextView
+
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    TextInputEditText emailEditText, passwordEditText, confirmPasswordEditText; // Added confirmPasswordEditText
+     TextInputEditText emailEditText, passwordEditText, confirmPasswordEditText; // Added confirmPasswordEditText
     Button registerBtn;
     DBHelper dbHelper;
     TextView tvLoginLink; // Declared here
@@ -24,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // --- Initialize UI elements ---
+         // --- Initialize UI elements ---
         // For Login Link
         tvLoginLink = findViewById(R.id.tvLoginLink);
         // For Email, Password, Register Button
@@ -54,11 +55,12 @@ public class RegisterActivity extends AppCompatActivity {
             String confirmPass = confirmPasswordEditText.getText().toString().trim(); // Get confirm password
 
             if (email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) { // Check all fields
+
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (!pass.equals(confirmPass)) { // Check if passwords match
+             if (!pass.equals(confirmPass)) { // Check if passwords match
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -85,10 +87,12 @@ public class RegisterActivity extends AppCompatActivity {
                     // Navigate to appropriate activity for regular user after registration
                     startActivity(new Intent(this, BooksAdminActivity.class)); // Example: navigate to BooksAdminActivity
                     finish();
+
                 } else {
                     Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
 }

@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-    public String getUserRole(String email) {
+     public String getUserRole(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT role FROM users WHERE email=?", new String[]{email});
         if (cursor.moveToFirst()) {
@@ -70,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE users (" +
+         db.execSQL("CREATE TABLE users (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "email TEXT UNIQUE, " +
                 "password TEXT, " +
@@ -130,7 +130,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertUser(String email, String password, String role) {
+     public boolean insertUser(String email, String password, String role) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("email", email);
@@ -183,6 +183,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return userList;
     }
+
     public boolean checkUserExists(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username=?", new String[]{username});

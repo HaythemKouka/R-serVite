@@ -20,9 +20,12 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.BIB.NoActionBar" />
         <activity android:name=".ListUsersActivity" />
+<<<<<<< HEAD
         <activity
             android:name=".LoginActivity"
             android:exported="false"> </activity>        <activity android:name=".BooksAdminActivity" />
+=======
+>>>>>>> 829dd5e7a1df165054911b1c6d371cd38ccb143f
 
          <activity
             android:name=".RegisterActivity"

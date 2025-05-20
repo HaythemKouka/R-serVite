@@ -28,7 +28,7 @@ public class ListUsersActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
 
         // Supposons que dbHelper ait une méthode getAllUsers() qui renvoie List<String> emails
-        List<User> userList = dbHelper.getAllUsers();
+         List<User> userList = dbHelper.getAllUsers();
 
         userAdapter = new UserAdapter(userList);
         usersRecyclerView.setAdapter(userAdapter);
