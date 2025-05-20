@@ -31,7 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_EMAIL = "email";
     private static final String COLUMN_USER_PASSWORD = "password";
     private static final String COLUMN_USER_ROLE = "role";
-    // *** Added for consistency: if you use a 'username' field separately from email
+    // *** Added for consistency: if you use a 'username' field separately from
+    // email
     private static final String COLUMN_USER_USERNAME = "username";
 
     // Books Table Columns
@@ -39,11 +40,13 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_BOOK_AUTHOR = "author";
 
     // Reservations Table Columns
-    // IMPORTANT: If 'email' is the unique user identifier, this FK should reference 'users(email)'
-    // I'm assuming for now your 'users' table will have both 'email' (unique) and 'username'
-    private static final String COLUMN_RESERVATION_USERNAME = "username"; // Used as FK, needs to match users table column
+    // IMPORTANT: If 'email' is the unique user identifier, this FK should reference
+    // 'users(email)'
+    // I'm assuming for now your 'users' table will have both 'email' (unique) and
+    // 'username'
+    private static final String COLUMN_RESERVATION_USERNAME = "username"; // Used as FK, needs to match users table
+                                                                          // column
     private static final String COLUMN_RESERVATION_BOOK_ID = "book_id";
-
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,6 +60,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+//        db.execSQL("CREATE TABLE users(username TEXT PRIMARY KEY, password TEXT)");
+        // Table des livres
+        db.execSQL("CREATE TABLE IF NOT EXISTS liv&res(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "titre TEXT, " +
+                "auteur TEXT, " +
+                "anneePublication INTEGER, " +
+                "isbn TEXT, " +
+                "type TEXT)");
         // Create Users Table
         // Added 'username' column here
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "(" +
@@ -79,7 +91,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RESERVATION_USERNAME + " TEXT, " +
                 COLUMN_RESERVATION_BOOK_ID + " INTEGER, " +
-                "FOREIGN KEY(" + COLUMN_RESERVATION_USERNAME + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_USER_USERNAME + "), " + // Changed to reference username
+                "FOREIGN KEY(" + COLUMN_RESERVATION_USERNAME + ") REFERENCES " + TABLE_USERS + "("
+                + COLUMN_USER_USERNAME + "), " + // Changed to reference username
                 "FOREIGN KEY(" + COLUMN_RESERVATION_BOOK_ID + ") REFERENCES " + TABLE_BOOKS + "(" + COLUMN_ID + "))";
         db.execSQL(CREATE_RESERVATIONS_TABLE);
 
@@ -97,7 +110,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This is a destructive upgrade. For production, implement proper schema migration.
+        // This is a destructive upgrade. For production, implement proper schema
+        // migration.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESERVATIONS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
@@ -116,7 +130,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_USERNAME, "ADMIN"); // Default username
         db.insert(TABLE_USERS, null, values);
     }
-
 
     // --- User Operations ---
 
@@ -139,7 +152,8 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         boolean exists = false;
         try {
-            cursor = db.rawQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_USERS + " WHERE " + COLUMN_USER_EMAIL + "=?", new String[]{email});
+            cursor = db.rawQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_USERS + " WHERE " + COLUMN_USER_EMAIL + "=?",
+                    new String[] { email });
             exists = cursor.getCount() > 0;
         } finally {
             if (cursor != null) {
@@ -159,8 +173,7 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor = db.rawQuery(
                     "SELECT " + COLUMN_ID + " FROM " + TABLE_USERS +
                             " WHERE " + COLUMN_USER_EMAIL + "=? AND " + COLUMN_USER_PASSWORD + "=?",
-                    new String[]{email, password}
-            );
+                    new String[] { email, password });
             isValid = cursor.getCount() > 0;
         } finally {
             if (cursor != null) {
@@ -177,7 +190,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         String role = null;
         try {
-            cursor = db.rawQuery("SELECT " + COLUMN_USER_ROLE + " FROM " + TABLE_USERS + " WHERE " + COLUMN_USER_EMAIL + "=?", new String[]{email});
+            cursor = db.rawQuery(
+                    "SELECT " + COLUMN_USER_ROLE + " FROM " + TABLE_USERS + " WHERE " + COLUMN_USER_EMAIL + "=?",
+                    new String[] { email });
             if (cursor.moveToFirst()) {
                 role = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_ROLE));
             }
@@ -197,7 +212,8 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         try {
             // Select all necessary columns to build a User object
-            cursor = db.rawQuery("SELECT " + COLUMN_ID + ", " + COLUMN_USER_EMAIL + ", " + COLUMN_USER_USERNAME + ", " + COLUMN_USER_ROLE + " FROM " + TABLE_USERS, null);
+            cursor = db.rawQuery("SELECT " + COLUMN_ID + ", " + COLUMN_USER_EMAIL + ", " + COLUMN_USER_USERNAME + ", "
+                    + COLUMN_USER_ROLE + " FROM " + TABLE_USERS, null);
 
             if (cursor.moveToFirst()) {
                 int idColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
@@ -235,12 +251,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+ 
+
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
         try {
-            cursor = db.rawQuery("SELECT " + COLUMN_ID + ", " + COLUMN_BOOK_TITLE + ", " + COLUMN_BOOK_AUTHOR + " FROM " + TABLE_BOOKS, null);
+            cursor = db.rawQuery("SELECT " + COLUMN_ID + ", " + COLUMN_BOOK_TITLE + ", " + COLUMN_BOOK_AUTHOR + " FROM "
+                    + TABLE_BOOKS, null);
             if (cursor.moveToFirst()) {
                 int idColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
                 int titleColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_BOOK_TITLE);
@@ -250,8 +269,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     books.add(new Book(
                             cursor.getInt(idColumnIndex),
                             cursor.getString(titleColumnIndex),
-                            cursor.getString(authorColumnIndex)
-                    ));
+                            cursor.getString(authorColumnIndex)));
                 } while (cursor.moveToNext());
             }
         } finally {
@@ -268,14 +286,14 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_BOOK_TITLE, title);
         cv.put(COLUMN_BOOK_AUTHOR, author);
-        int result = db.update(TABLE_BOOKS, cv, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+        int result = db.update(TABLE_BOOKS, cv, COLUMN_ID + "=?", new String[] { String.valueOf(id) });
         db.close();
         return result > 0;
     }
 
     public boolean deleteBook(int bookId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete(TABLE_BOOKS, COLUMN_ID + " = ?", new String[]{String.valueOf(bookId)});
+        int result = db.delete(TABLE_BOOKS, COLUMN_ID + " = ?", new String[] { String.valueOf(bookId) });
         db.close();
         return result > 0;
     }

@@ -18,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button registerBtn;
     DBHelper dbHelper;
     TextView tvLoginLink;
+    Button manageBooksBtn;  // déclaration au niveau classe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,18 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });manageBooksBtn = findViewById(R.id.manageBooksBtn);
+        manageBooksBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LivreActivity.class);
+                startActivity(intent);
+            }
+        }); // 👈 Cette accolade fermante doit bien se trouver ici
+
+
+
     }
 
-}
+ }
+ 

@@ -35,7 +35,9 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("com.google.android.material:material:1.7.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
@@ -46,4 +48,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 }

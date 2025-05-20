@@ -5,7 +5,21 @@
     android:layout_width="match_parent"
      android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".RegisterActivity"> <com.google.android.material.textfield.TextInputLayout
+    tools:context=".RegisterActivity">
+     <Button
+         android:id="@+id/manageBooksBtn"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:text="Gestion Livres"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         android:layout_marginTop="16dp"
+         android:padding="12dp"
+         android:backgroundTint="@color/purple_700"
+         android:textColor="@android:color/white" />
+
+     <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/emailLayout"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
