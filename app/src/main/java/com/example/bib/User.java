@@ -9,13 +9,26 @@ public class User {
     private String username;
     private String password;
 
+    private String role;
+
     public User( ) {
        super();
     }
-    public User(int id, String email, String password) {
-        this.id = id;
-        this.email = email;
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public User(String password, String role, String username, String email, int id) {
         this.password = password;
+        this.role = role;
+        this.username = username;
+        this.email = email;
+        this.id = id;
     }
 
     public int getId() { return id; }

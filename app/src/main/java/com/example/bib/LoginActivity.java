@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     startActivity(new Intent(this, BooksAdminActivity.class));
                 }
-                finish();
+                finish(); // Good: Finish LoginActivity after successful login
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
             }
@@ -54,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
 
         tvRegisterLink.setOnClickListener(v -> {
             startActivity(new Intent(this, RegisterActivity.class));
+            // You might want to finish LoginActivity here too, or decide based on UX flow
+            // finish();
         });
     }
 }

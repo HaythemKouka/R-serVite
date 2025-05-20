@@ -13,23 +13,22 @@
         android:theme="@style/Theme.BIB"
         tools:targetApi="31">
 
-        <!-- 🔁 MainActivity: NOT launcher anymore -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.BIB.NoActionBar" />
-        <activity android:name=".ListUsersActivity" />
-<<<<<<< HEAD
+             android:theme="@style/Theme.BIB.NoActionBar" />
+         <activity
+            android:name=".ListUsersActivity"
+            android:exported="false" /> ```
         <activity
             android:name=".LoginActivity"
-            android:exported="false"> </activity>        <activity android:name=".BooksAdminActivity" />
-=======
->>>>>>> 829dd5e7a1df165054911b1c6d371cd38ccb143f
+            android:exported="false"> </activity>
+        <activity android:name=".BooksAdminActivity" />
 
-         <activity
+
+        <activity
             android:name=".RegisterActivity"
-            android:exported="true"> <!-- REQUIRED for Android 12+ -->
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
