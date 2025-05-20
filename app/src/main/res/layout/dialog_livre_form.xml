@@ -32,7 +32,7 @@
 
         <EditText
             android:id="@+id/editIsbn"
-            android:hint="ISBN"
+            android:hint="ISBN (ex: 9781234567890)"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
