@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+     android:layout_height="match_parent"
     android:padding="16dp"
     tools:context=".RegisterActivity"> <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/emailLayout"
@@ -13,7 +13,7 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    android:layout_marginTop="64dp">
+    android:layout_marginTop="100">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etEmail"
@@ -60,30 +60,7 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-         <ImageView
-             android:id="@+id/profileImageView"
-             android:layout_width="120dp"
-             android:layout_height="120dp"
-             android:src="@drawable/userphoto"
-             android:scaleType="centerCrop"
-              app:layout_constraintTop_toBottomOf="@+id/confirmPasswordLayout"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintEnd_toEndOf="parent"
-             android:layout_marginTop="24dp"
-             android:contentDescription="Profile Picture" />
-
-         <Button
-             android:id="@+id/btnChoosePhoto"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Choose Photo"
-             app:layout_constraintTop_toBottomOf="@+id/profileImageView"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintEnd_toEndOf="parent"
-             android:layout_marginTop="16dp"/>
-
-     <Button
+    <Button
         android:id="@+id/btnRegisterSubmit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
