@@ -51,6 +51,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+    public boolean deleteUser(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deletedRows = db.delete("users", "email = ?", new String[]{email});
+        return deletedRows > 0;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -93,6 +99,13 @@ public class DBHelper extends SQLiteOpenHelper {
         // --- INSERT DEFAULT ADMIN USER ---
         // This code runs ONLY when the database is created for the very first time.
         insertDefaultAdmin(db);
+    }
+    public boolean resetPassword(String email, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("password", newPassword);
+        int rows = db.update("users", values, "email=?", new String[]{email});
+        return rows > 0;
     }
 
     @Override

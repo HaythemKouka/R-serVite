@@ -1,6 +1,7 @@
 package com.example.bib;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -44,6 +45,11 @@ public class LoginActivity extends AppCompatActivity {
                 if ("admin".equalsIgnoreCase(role)) {
                     startActivity(new Intent(this, ListUsersActivity.class));
                 } else {
+                    SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("email", email);  // email du user connecté
+                    editor.apply();
+
                     startActivity(new Intent(this, BooksAdminActivity.class));
                 }
                 finish(); // Good: Finish LoginActivity after successful login
