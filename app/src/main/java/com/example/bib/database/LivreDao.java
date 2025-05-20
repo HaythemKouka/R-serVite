@@ -61,4 +61,32 @@ public class LivreDao {
         int rows = db.delete("livres", "id=?", new String[]{String.valueOf(id)});
         return rows > 0;
     }
+    public List<Livres> getLivresParType(String type) {
+        List<Livres> livres = new ArrayList<>();
+
+        Cursor cursor = db.query("livres", null, "type = ?", new String[]{type}, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String titre = cursor.getString(cursor.getColumnIndexOrThrow("titre"));
+                String auteur = cursor.getString(cursor.getColumnIndexOrThrow("auteur"));
+                int annee = cursor.getInt(cursor.getColumnIndexOrThrow("anneePublication"));
+                String isbn = cursor.getString(cursor.getColumnIndexOrThrow("isbn"));
+                String typeLivre = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+
+                livres.add(new Livres(id, titre, auteur, annee, isbn, typeLivre));
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close(); // ✅ c’est bien de fermer le curseur
+        return livres;  // ✅ ne pas fermer `db` ici
+    }
+    public void close() {
+        if (db != null && db.isOpen()) {
+            db.close();
+        }
+    }
+
 }
