@@ -19,7 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
     DBHelper dbHelper;
     TextView tvLoginLink;
     Button manageBooksBtn;  // déclaration au niveau classe
-
+    Button buttonGoToReservation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +96,14 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }); // 👈 Cette accolade fermante doit bien se trouver ici
 
+         buttonGoToReservation = findViewById(R.id.buttonGoToReservation);
+        buttonGoToReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, ReservationActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

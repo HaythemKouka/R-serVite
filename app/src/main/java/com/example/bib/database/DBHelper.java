@@ -95,10 +95,20 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_USER_USERNAME + "), " + // Changed to reference username
                 "FOREIGN KEY(" + COLUMN_RESERVATION_BOOK_ID + ") REFERENCES " + TABLE_BOOKS + "(" + COLUMN_ID + "))";
         db.execSQL(CREATE_RESERVATIONS_TABLE);
-
+        String CREATE_RESERVATION_TABLE = "CREATE TABLE reservations (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "user_email TEXT NOT NULL," +
+                "cin TEXT NOT NULL," +
+                "photo_cin BLOB," +
+                "livre_id INTEGER NOT NULL," +
+                "date_reservation TEXT NOT NULL," +
+                "statut TEXT NOT NULL DEFAULT 'en attente'" +
+                ")";
+        db.execSQL(CREATE_RESERVATION_TABLE);
         // --- INSERT DEFAULT ADMIN USER ---
         // This code runs ONLY when the database is created for the very first time.
         insertDefaultAdmin(db);
+
     }
     public boolean resetPassword(String email, String newPassword) {
         SQLiteDatabase db = this.getWritableDatabase();
