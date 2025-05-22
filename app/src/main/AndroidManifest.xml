@@ -36,7 +36,9 @@
         <activity
             android:name=".ListUsersActivity"
             android:exported="false" />
-
+        <activity android:name=".UserReservationsActivity"
+            android:label="User Reservations"
+            android:parentActivityName=".UserReservationsActivity"> </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
@@ -47,6 +49,8 @@
 
         <activity android:name=".BooksAdminActivity" />
         <activity android:name=".LivreActivity" />
+        <activity android:name=".ReservationActivity" />
+
     </application>
 
 </manifest>
