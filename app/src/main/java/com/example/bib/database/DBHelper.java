@@ -17,7 +17,7 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "LibraryApp.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table Names
     private static final String TABLE_USERS = "users";
@@ -87,24 +87,20 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_BOOKS_TABLE);
 
         // Create Reservations Table
-        String CREATE_RESERVATIONS_TABLE = "CREATE TABLE " + TABLE_RESERVATIONS + "(" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_RESERVATION_USERNAME + " TEXT, " +
-                COLUMN_RESERVATION_BOOK_ID + " INTEGER, " +
-                "FOREIGN KEY(" + COLUMN_RESERVATION_USERNAME + ") REFERENCES " + TABLE_USERS + "("
-                + COLUMN_USER_USERNAME + "), " + // Changed to reference username
-                "FOREIGN KEY(" + COLUMN_RESERVATION_BOOK_ID + ") REFERENCES " + TABLE_BOOKS + "(" + COLUMN_ID + "))";
-        db.execSQL(CREATE_RESERVATIONS_TABLE);
-        String CREATE_RESERVATION_TABLE = "CREATE TABLE reservations (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "user_email TEXT NOT NULL," +
-                "cin TEXT NOT NULL," +
-                "photo_cin BLOB," +
-                "livre_id INTEGER NOT NULL," +
-                "date_reservation TEXT NOT NULL," +
-                "statut TEXT NOT NULL DEFAULT 'en attente'" +
-                ")";
-        db.execSQL(CREATE_RESERVATION_TABLE);
+        String createReservations = "CREATE TABLE IF NOT EXISTS reservations (\n" +
+                "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    user_email TEXT NOT NULL,\n" +
+                "    nom TEXT,\n" +
+                "    tel TEXT,\n" +
+                "    cin TEXT NOT NULL,\n" +
+                "    photo_cin_uri TEXT,\n" +
+                "    titres_livres TEXT,\n" +
+                "    date_reservation TEXT,\n" +
+                "    statut TEXT\n" +
+                ");";
+
+        db.execSQL(createReservations);
+
         // --- INSERT DEFAULT ADMIN USER ---
         // This code runs ONLY when the database is created for the very first time.
         insertDefaultAdmin(db);
@@ -120,13 +116,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This is a destructive upgrade. For production, implement proper schema
-        // migration.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESERVATIONS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        onCreate(db); // Recreate tables
+        db.execSQL("DROP TABLE IF EXISTS reservations"); // Tu as deux tables reservations dans ton code ? A vérifier
+        onCreate(db);
     }
+
 
     /**
      * Helper method to insert the default admin user.

@@ -3,18 +3,22 @@ package com.example.bib;
 public class Reservation {
     private int id;
     private String userEmail;
+    private String nom;
+    private String tel;
     private String cin;
-    private byte[] photoCin;
-    private int livreId;
+    private String photoCinUri;
+    private String titresLivres;
     private String dateReservation;
     private String statut;
 
-    public Reservation(int id, String userEmail, String cin, byte[] photoCin, int livreId, String dateReservation, String statut) {
+    public Reservation(int id, String userEmail, String nom, String tel, String cin, String photoCinUri, String titresLivres, String dateReservation, String statut) {
         this.id = id;
         this.userEmail = userEmail;
+        this.nom = nom;
+        this.tel = tel;
         this.cin = cin;
-        this.photoCin = photoCin;
-        this.livreId = livreId;
+        this.photoCinUri = photoCinUri;
+        this.titresLivres = titresLivres;
         this.dateReservation = dateReservation;
         this.statut = statut;
     }
@@ -27,14 +31,20 @@ public class Reservation {
     public String getUserEmail() { return userEmail; }
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+
+    public String getTel() { return tel; }
+    public void setTel(String tel) { this.tel = tel; }
+
     public String getCin() { return cin; }
     public void setCin(String cin) { this.cin = cin; }
 
-    public byte[] getPhotoCin() { return photoCin; }
-    public void setPhotoCin(byte[] photoCin) { this.photoCin = photoCin; }
+    public String getPhotoCinUri() { return photoCinUri; }
+    public void setPhotoCinUri(String photoCinUri) { this.photoCinUri = photoCinUri; }
 
-    public int getLivreId() { return livreId; }
-    public void setLivreId(int livreId) { this.livreId = livreId; }
+    public String getTitresLivres() { return titresLivres; }
+    public void setTitresLivres(String titresLivres) { this.titresLivres = titresLivres; }
 
     public String getDateReservation() { return dateReservation; }
     public void setDateReservation(String dateReservation) { this.dateReservation = dateReservation; }

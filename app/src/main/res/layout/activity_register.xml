@@ -10,9 +10,12 @@
     tools:context=".RegisterActivity">
      <Button
          android:id="@+id/buttonGoToReservation"
-         android:layout_width="match_parent"
+         android:layout_width="0dp"
          android:layout_height="wrap_content"
-         android:text="Faire une réservation" />
+         android:text="Faire une réservation"
+         app:layout_constraintTop_toBottomOf="@id/textViewEmail"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent" />
 
      <Button
          android:id="@+id/manageBooksBtn"

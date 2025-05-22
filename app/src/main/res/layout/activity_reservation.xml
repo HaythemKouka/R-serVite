@@ -5,109 +5,67 @@
     android:padding="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <!-- Email auto-rempli -->
         <TextView
             android:id="@+id/textViewEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email: user@example.com"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
+            android:text="Email:" />
 
-        <!-- Nom complet -->
         <EditText
             android:id="@+id/editTextNom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nom complet"
-            android:inputType="textPersonName"
-            android:layout_marginBottom="8dp" />
+            android:hint="Nom complet" />
 
-        <!-- Numéro de téléphone -->
         <EditText
             android:id="@+id/editTextTel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Numéro de téléphone"
-            android:inputType="phone"
-            android:layout_marginBottom="8dp" />
+            android:hint="Téléphone"
+            android:inputType="phone"/>
 
-        <!-- CIN -->
         <EditText
             android:id="@+id/editTextCin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Numéro CIN"
-            android:inputType="text"
-            android:maxLength="20"
-            android:layout_marginBottom="8dp" />
+            android:hint="CIN" />
 
-        <!-- Bouton pour choisir la photo du CIN -->
-        <Button
-            android:id="@+id/buttonChoosePhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Choisir une photo du CIN"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Affichage de la photo -->
-        <ImageView
-            android:id="@+id/imageViewPhotoCin"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerInside"
-            android:background="#eeeeee"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Liste des livres (Multi sélection simulée par AutoComplete) -->
         <MultiAutoCompleteTextView
             android:id="@+id/autoCompleteLivres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Choisir un ou plusieurs livres"
-            android:inputType="textAutoComplete"
-            android:layout_marginBottom="16dp" />
+            android:hint="Sélectionner livres (séparés par virgule)" />
 
-        <!-- Bouton de réservation -->
+        <ImageView
+            android:id="@+id/imageViewPhotoCin"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:background="#ddd" />
+
+        <Button
+            android:id="@+id/buttonChoosePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choisir photo CIN" />
+
         <Button
             android:id="@+id/buttonReserve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Réserver"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginTop="16dp" />
 
-        <!-- Section : Tableau des réservations -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mes réservations"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Tableau -->
         <TableLayout
             android:id="@+id/tableReservations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="*"
-            android:background="#dddddd"
-            android:padding="8dp">
-
-            <!-- En-tête -->
-            <TableRow>
-                <TextView android:text="Livre" android:textStyle="bold" />
-                <TextView android:text="Date" android:textStyle="bold" />
-                <TextView android:text="Statut" android:textStyle="bold" />
-            </TableRow>
-
-            <!-- Lignes dynamiques à ajouter depuis le code Java -->
-
-        </TableLayout>
+            android:layout_marginTop="24dp" />
 
     </LinearLayout>
 </ScrollView>
