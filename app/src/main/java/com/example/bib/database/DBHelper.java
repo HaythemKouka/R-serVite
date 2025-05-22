@@ -17,6 +17,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
+
     private static final String DATABASE_NAME = "LibraryApp.db";
     private static final int DATABASE_VERSION = 3; // Increment version to trigger onUpgrade
 
@@ -98,67 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
         insertDefaultAdmin(db);
         insertDefaultUserAndReservation(db);
     }
-// Inside com.example.bib.database.DBHelper.java
 
-// ... (existing code)
-
-    // --- NEW METHOD: Get Livres by ID ---
-    @Nullable // Use Nullable as it might return null if not found
-    public Livres getLivreById(int livreId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
-        Livres livre = null;
-        try {
-            cursor = db.rawQuery(
-                    "SELECT " + COLUMN_ID + ", " + COLUMN_LIVRE_TITRE + ", " + COLUMN_LIVRE_AUTEUR + ", " +
-                            COLUMN_LIVRE_ANNEE_PUBLICATION + ", " + COLUMN_LIVRE_ISBN + ", " + COLUMN_LIVRE_TYPE +
-                            " FROM " + TABLE_LIVRES +
-                            " WHERE " + COLUMN_ID + " = ?",
-                    new String[]{String.valueOf(livreId)}
-            );
-            if (cursor.moveToFirst()) {
-                int idColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
-                int titreColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_TITRE);
-                int auteurColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_AUTEUR);
-                int anneePublicationColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_ANNEE_PUBLICATION);
-                int isbnColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_ISBN);
-                int typeColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_TYPE);
-
-                livre = new Livres(
-                        cursor.getInt(idColumnIndex),
-                        cursor.getString(titreColumnIndex),
-                        cursor.getString(auteurColumnIndex),
-                        cursor.getInt(anneePublicationColumnIndex),
-                        cursor.getString(isbnColumnIndex),
-                        cursor.getString(typeColumnIndex)
-                );
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
-        }
-        return livre;
-    }
-
-
-    // --- NEW METHOD: Update Reservation Status ---
-    public boolean updateReservationStatus(int reservationId, String newStatus) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_RESERVATION_STATUT, newStatus);
-        int rowsAffected = db.update(
-                TABLE_RESERVATIONS,
-                values,
-                COLUMN_ID + " = ?",
-                new String[]{String.valueOf(reservationId)}
-        );
-        db.close();
-        return rowsAffected > 0;
-    }
-
-    // ... (rest of your DBHelper code)
     public boolean resetPassword(String email, String newPassword) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -194,6 +135,21 @@ public class DBHelper extends SQLiteOpenHelper {
      * and a default reservation linking them.
      * Called only once when the database is first created.
      */
+
+    public boolean updateReservationStatus(int reservationId, String newStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_RESERVATION_STATUT, newStatus);
+        int rowsAffected = db.update(
+                TABLE_RESERVATIONS,
+                values,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(reservationId)}
+        );
+        db.close();
+        return rowsAffected > 0;
+    }
+
     private void insertDefaultUserAndReservation(SQLiteDatabase db) {
         // 1. Insert Default User: user@user.user
         String defaultUserEmail = "user@user.user";
@@ -236,8 +192,99 @@ public class DBHelper extends SQLiteOpenHelper {
             db.insert(TABLE_RESERVATIONS, null, reservationValues);
         }
     }
+    @Nullable // Use Nullable as it might return null if not found
+    public Livres getLivreById(int livreId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        Livres livre = null;
+        try {
+            cursor = db.rawQuery(
+                    "SELECT " + COLUMN_ID + ", " + COLUMN_LIVRE_TITRE + ", " + COLUMN_LIVRE_AUTEUR + ", " +
+                            COLUMN_LIVRE_ANNEE_PUBLICATION + ", " + COLUMN_LIVRE_ISBN + ", " + COLUMN_LIVRE_TYPE +
+                            " FROM " + TABLE_LIVRES +
+                            " WHERE " + COLUMN_ID + " = ?",
+                    new String[]{String.valueOf(livreId)}
+            );
+            if (cursor.moveToFirst()) {
+                int idColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
+                int titreColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_TITRE);
+                int auteurColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_AUTEUR);
+                int anneePublicationColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_ANNEE_PUBLICATION);
+                int isbnColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_ISBN);
+                int typeColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_LIVRE_TYPE);
+
+                livre = new Livres(
+                        cursor.getInt(idColumnIndex),
+                        cursor.getString(titreColumnIndex),
+                        cursor.getString(auteurColumnIndex),
+                        cursor.getInt(anneePublicationColumnIndex),
+                        cursor.getString(isbnColumnIndex),
+                        cursor.getString(typeColumnIndex)
+                );
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return livre;
+    }
 
     // --- User Operations ---
+
+
+    // Inside com.example.bib.database.DBHelper.java
+
+// ... (existing code)
+
+    /**
+     * Retrieves all reservations from the database, typically for an admin view.
+     * @return A list of all Reservation objects.
+     */
+    public List<Reservation> getAllReservations() {
+        List<Reservation> reservations = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(
+                    "SELECT " + COLUMN_ID + ", " + COLUMN_RESERVATION_USER_EMAIL + ", " + COLUMN_RESERVATION_CIN + ", " +
+                            COLUMN_RESERVATION_PHOTO_CIN + ", " + COLUMN_RESERVATION_LIVRE_ID + ", " + COLUMN_RESERVATION_DATE + ", " +
+                            COLUMN_RESERVATION_STATUT +
+                            " FROM " + TABLE_RESERVATIONS,
+                    null // No WHERE clause to get all
+            );
+            if (cursor.moveToFirst()) {
+                int idColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
+                int userEmailColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_RESERVATION_USER_EMAIL);
+                int cinColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_RESERVATION_CIN);
+                int photoCinColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_RESERVATION_PHOTO_CIN);
+                int livreIdColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_RESERVATION_LIVRE_ID);
+                int dateReservationColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_RESERVATION_DATE);
+                int statutColumnIndex = cursor.getColumnIndexOrThrow(COLUMN_RESERVATION_STATUT);
+
+                do {
+                    reservations.add(new Reservation(
+                            cursor.getInt(idColumnIndex),
+                            cursor.getString(userEmailColumnIndex),
+                            cursor.getString(cinColumnIndex),
+                            cursor.getBlob(photoCinColumnIndex),
+                            cursor.getInt(livreIdColumnIndex),
+                            cursor.getString(dateReservationColumnIndex),
+                            cursor.getString(statutColumnIndex)
+                    ));
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return reservations;
+    }
+
+// ... (rest of your DBHelper code)
 
     public boolean insertUser(String email, String password, String role) {
         SQLiteDatabase db = this.getWritableDatabase();

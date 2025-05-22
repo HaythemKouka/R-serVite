@@ -30,6 +30,8 @@ public class ReservationAdapter extends ArrayAdapter<Reservation> {
         this.dbHelper = dbHelper;
     }
 
+
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
