@@ -14,7 +14,6 @@
         android:textStyle="bold"
         android:gravity="center"
         android:fitsSystemWindows="true"
-
         android:paddingBottom="16dp" />
 
     <ListView
@@ -30,4 +29,6 @@
         android:text="Aucune réservation trouvée pour cet utilisateur."
         android:gravity="center"
         android:textSize="18sp"
-        android:visibility="gone" /> </LinearLayout>
+        android:visibility="gone" />
+
+</LinearLayout>

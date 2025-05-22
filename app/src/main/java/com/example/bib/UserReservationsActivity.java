@@ -39,7 +39,7 @@ public class UserReservationsActivity extends AppCompatActivity
     }
 
     private void loadUserReservations(String userEmail) {
-        List<String> reservations = dbHelper.getReservationsByUser(userEmail);
+        List<String> reservations = dbHelper.getReservationDetailsByUser(userEmail);
 
         if (reservations.isEmpty()) {
             // Display a message if no reservations are found

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/tvReservationDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:text="Reservation: Livre Titre par Auteur | Date:YYYY-MM-DD | Statut: en attente"/>
+
+    <TextView
+        android:id="@+id/tvReservationCIN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="14sp"
+        android:text="CIN de l'utilisateur: "/>
+
+    <TextView
+        android:id="@+id/tvReservationUserEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:textSize="14sp"
+    android:text="Email de l'utilisateur: "/>
+
+    <Button
+        android:id="@+id/btnValidateReservation"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:text="Valider la Réservation"
+        android:backgroundTint="@color/design_default_color_primary"
+        android:visibility="gone" /> </LinearLayout>

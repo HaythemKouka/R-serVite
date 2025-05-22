@@ -32,7 +32,7 @@ public class BooksAdminActivity extends AppCompatActivity {
         addBookBtn = findViewById(R.id.addBookBtn);
         booksRecyclerView = findViewById(R.id.booksRecyclerView);
 
-        adapter = new BooksAdapter(dbHelper.getAllBooks(), dbHelper);
+        adapter = new BooksAdapter(dbHelper.getAllLivres(), dbHelper);
         booksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         booksRecyclerView.setAdapter(adapter);
 
@@ -40,8 +40,8 @@ public class BooksAdminActivity extends AppCompatActivity {
             String title = titleInput.getText().toString();
             String author = authorInput.getText().toString();
             if (!title.isEmpty() && !author.isEmpty()) {
-                dbHelper.insertBook(title, author);
-                adapter.setBooks(dbHelper.getAllBooks());
+                dbHelper.insertLivre(title, author);
+                adapter.setBooks(dbHelper.getAllLivres());
                 titleInput.setText("");
                 authorInput.setText("");
             }

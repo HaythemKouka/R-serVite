@@ -16,15 +16,15 @@ import java.util.List;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHolder> {
 
-    private List<Book> books;
+    private List<Livres> books;
     private DBHelper dbHelper;
 
-    public BooksAdapter(List<Book> books, DBHelper dbHelper) {
+    public BooksAdapter(List<Livres> books, DBHelper dbHelper) {
         this.books = books;
         this.dbHelper = dbHelper;
     }
 
-    public void setBooks(List<Book> updatedBooks) {
+    public void setBooks(List<Livres> updatedBooks) {
         this.books = updatedBooks;
         notifyDataSetChanged();
     }
@@ -38,17 +38,17 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        Book book = books.get(position);
-        holder.title.setText("Titre: " + book.getTitle());
-        holder.author.setText("Auteur: " + book.getAuthor());
+        Livres book = books.get(position);
+        holder.title.setText("Titre: " + book.getTitre());
+        holder.author.setText("Auteur: " + book.getAuteur());
 
         holder.deleteBtn.setOnClickListener(v -> {
             new AlertDialog.Builder(holder.itemView.getContext())
                     .setTitle("Confirmation")
                     .setMessage("Supprimer ce livre ?")
                     .setPositiveButton("Oui", (dialog, which) -> {
-                        dbHelper.deleteBook(book.getId());
-                        setBooks(dbHelper.getAllBooks());
+                        dbHelper.deleteLivre(book.getId());
+                        setBooks(dbHelper.getAllLivres());
                     })
                     .setNegativeButton("Non", null)
                     .show();
